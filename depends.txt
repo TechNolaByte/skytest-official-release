@@ -1,8 +1,0 @@
-default
-bucket
-pipeworks
-crops
-farming_plus
-morefarming
-tnt
-bushes
