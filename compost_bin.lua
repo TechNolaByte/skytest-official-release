@@ -26,6 +26,8 @@ compost.compostable_nodes = {
 	'farming:wheat',
 	'farming:straw',
 	'farming:cotton',
+	'skytest:silk',
+	'skytest:silkworm',
 }
 compost.compostable_items = {}
 for _, v in pairs(compost.compostable_nodes) do

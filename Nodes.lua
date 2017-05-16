@@ -7,8 +7,20 @@ minetest.register_node("skytest:cobblegen", {
     description = "Cobble gen",
         tiles = {"default_lava.png"},
         groups = {cracky=1},
-
-            })
+})
+minetest.register_node("skytest:growth_crystal", {
+    description = "Growth crystal",
+        tiles = {"ant_dirt.png"},
+        groups = {cracky=1},
+})
+minetest.register_craft({
+        output = "skytest:growth_crystal",
+        recipe = {
+            {"skytest:glowstone","skytest:lapis","skytest:glowstone"},
+            {"skytest:lapis","group:soil","skytest:lapis"},
+            {"skytest:glowstone","skytest:lapis","skytest:glowstone"},
+        }
+    })
 minetest.register_craft({
         output = "skytest:cobblegen",
         recipe = {
@@ -39,7 +51,7 @@ minetest.register_node(":default:cobble", {
         max_items = 1,
         items = {{
             items = {'node "default:gravel" 1'},
-	    tools ={"skytest:bronze_hammer","skytest:stone_hammer","skytest:steel_hammer","skytest:diamond_hammer","skytest:mese_hammer"},
+	    tools ={"skytest:stone_hammer","skytest:steel_hammer","skytest:diamond_hammer","skytest:mese_hammer"},
 	}, {
 	    items = {'node "default:cobble" 1'},
 	    tools ={"~pick"},
@@ -55,7 +67,7 @@ minetest.register_node(":default:gravel", {
         max_items = 1,
         items = {{
             items = {'node "default:sand" 1'},
-	    tools ={"skytest:bronze_hammer","skytest:stone_hammer","skytest:steel_hammer","skytest:diamond_hammer","skytest:mese_hammer"},
+	    tools ={"skytest:stone_hammer","skytest:steel_hammer","skytest:diamond_hammer","skytest:mese_hammer"},
 }}
     }
 })
@@ -68,7 +80,7 @@ minetest.register_node(":default:sand", {
         max_items = 1,
         items = {{
             items = {'node "skytest:dust" 1'},
-	    tools ={"skytest:bronze_hammer","skytest:stone_hammer","skytest:steel_hammer","skytest:diamond_hammer","skytest:mese_hammer"},
+	    tools ={"skytest:stone_hammer","skytest:steel_hammer","skytest:diamond_hammer","skytest:mese_hammer"},
 }, {
 	    items = {'node "default:sand" 1'},
       }}

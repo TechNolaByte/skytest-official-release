@@ -101,5 +101,51 @@ minetest.register_abm({
 	return true
 end,
 })
+minetest.register_node("skytest:super_"..name.."_infused_soil", {
+	description = ""..name.." infused soil",
+	tiles = {"brilliance_grass.png", "brilliance_grass.png", "brilliance_grass.png^"..data.tex..""},
+	is_ground_content = false,
+	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
+})      
+
+minetest.register_craft({
+        output = "skytest:super_"..name.."_infused_soil",
+        recipe = {
+            {"skytest:"..name.."_infused_soil",data.mat,"skytest:"..name.."_infused_soil"},
+            {data.mat,"skytest:"..name.."_infused_soil",data.mat},
+            {"skytest:"..name.."_infused_soil","skytest:cobblegen","skytest:"..name.."_infused_soil"},
+        }
+    })
+
+minetest.register_node("skytest:super_"..name.."_sprout", {
+	description = "super "..name.." sprout",
+	drop = data.mat,
+	drawtype = "plantlike",
+	stack_max = 999,
+	tiles = {"sprout.png^"..data.tex..""},
+	inventory_image = data.tex,
+	wield_image = data.tex,
+	paramtype = "light",
+	walkable = false,
+	climbable = true,
+	is_ground_content = true,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.5, 0.3}
+	},
+	groups = {snappy=3,flammable=2},
+	sounds = default.node_sound_leaves_defaults(),
+})
+
+minetest.register_abm({
+	nodenames = {"skytest:super_"..name.."_infused_soil"},
+	neighbors = {"skytest:growth_crystal"},
+	interval = 1,
+	chance = 1,
+	action = function(pos, node)
+	pos.y = pos.y+1
+	minetest.set_node(pos, {name="skytest:super_"..name.."_sprout"})
+	end,
+})
 
 end

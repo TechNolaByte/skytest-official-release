@@ -190,27 +190,6 @@ minetest.register_craft({
             {"default:stick","",""},
         }
     })
-minetest.register_tool("skytest:bronze_hammer", {
-        description = "Bronze Hammer",
-        inventory_image = "skytest_hammer_wood.png",
-       tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=1,
-		groupcaps={
-			cracky = {times={[1]=4.00, [2]=1.60, [3]=0.80}, uses=30, maxlevel=2},
-		},
-		damage_groups = {fleshy=6},
-	},
-        sound = {breaks = "default_tool_breaks"},
-    })
-minetest.register_craft({
-        output = "skytest:bronze_hammer",
-        recipe = {
-            {"","default:bronze_ingot",""},
-            {"","default:stick","default:bronze_ingot"},
-            {"default:stick","",""},
-        }
-    })
 minetest.register_tool("skytest:mese_hammer", {
         description = "Mese Hammer",
         inventory_image = "skytest_hammer_mese.png",
@@ -270,7 +249,14 @@ minetest.register_craft({
         }
     })
 
-
+minetest.register_craft({
+        output = "skytest:leaf_collector",
+        recipe = {
+            {"","","skytest:crook"},
+            {"","default:stick",""},
+            {"default:stick","",""},
+        }
+    })
 minetest.register_tool("skytest:crook", {
         description = "Crook",
         inventory_image = "ant_hoe.png",
@@ -324,4 +310,269 @@ minetest.register_tool("skytest:silkworm", {
 	sound = {breaks = "default_tool_breaks"},
 	stack_max = 99,
     })
-			
+minetest.register_tool("skytest:leaf_collector_vm", {
+        description = "leaf collector(vein mine leaves)",
+        inventory_image = "spears_spear_bronze.png",
+        tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=0,
+		groupcaps = {
+			crumbly = {times={[2]=3.00, [3]=0.70}, uses=10, maxlevel=1},
+			snappy = {times={[3]=0.40}, uses=10, maxlevel=1},
+			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=10}
+		},
+		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+	range = 12,
+    })
+minetest.register_tool("skytest:leaf_collector_normal", {
+        description = "leaf collector(extra reach)",
+        inventory_image = "spears_spear_bronze.png",
+        tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=0,
+		groupcaps = {
+			crumbly = {times={[2]=3.00, [3]=0.70}, uses=30, maxlevel=1},
+			snappy = {times={[3]=0.40}, uses=30, maxlevel=1},
+			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=30}
+		},
+		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+	range = 12,
+    })
+
+minetest.register_on_dignode(function(pos, oldnode, digger)
+	local item = digger:get_wielded_item():to_string()
+	if string.match(item, "skytest:leaf_collector_vm") then
+		if minetest.get_item_group(oldnode.name, "leaves") ~= 0 then
+			leaffeller_loop(pos,digger)
+		end
+	end
+end)
+
+
+--have this recursively check for tree/leaves around it (1 node radius)
+leaffeller_loop = function(pos,digger)
+
+	local min = {x=pos.x-1,y=pos.y-1,z=pos.z-1}
+	local max = {x=pos.x+1,y=pos.y+1,z=pos.z+1}
+	local vm = minetest.get_voxel_manip()	
+	local emin, emax = vm:read_from_map(min,max)
+	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
+	local data = vm:get_data()
+	
+	local air = minetest.get_content_id("air")
+	for x = -1,1  do
+		for z = -1,1  do
+			for y = -1,1  do
+				local p_pos = area:index(pos.x+x,pos.y+y,pos.z+z)
+				local pos2 = {x=pos.x+x,y=pos.y+y,z=pos.z+z}
+				local name = minetest.get_name_from_content_id(data[p_pos])
+				
+				
+				
+				if placed == nil or placed == "" then
+					if minetest.get_item_group(name, "leaves") ~= 0 then
+						data[p_pos] = air
+						minetest.after(0,function(pos2)
+					        leaffeller_loop(pos2)
+						end, pos2)
+						minetest.add_item({x=pos.x+x,y=pos.y+y,z=pos.z+z}, name)	
+						
+					end
+				end
+			end
+		end
+	end
+	vm:update_liquids()
+	vm:set_data(data)
+	vm:calc_lighting()
+	vm:write_to_map()
+	vm:update_map()
+end
+
+skytest = {}
+skytest.player_inv_width = 8
+skytest.get_player_inv_width = function()
+	local p = minetest.get_connected_players()
+	if p and #p > 0 then
+		local i,v = next(p)
+		-- I'm kind of assuming that the player inventory has 4 rows, here
+		skytest.player_inv_width = math.floor( v:get_inventory():get_size("main") / 4 )
+	else
+		-- just keep waiting till we get this info
+		minetest.after(1.5, skytest.get_player_inv_width)
+	end
+end
+
+minetest.after(1.5, skytest.get_player_inv_width)
+
+-- break a node and give the default drops
+
+function skytest.drop_node(pos, digger, wielded, rank)
+	-- check if we can drop this node
+	local node = minetest.get_node(pos)
+	local def = ItemStack({name=node.name}):get_definition()
+
+	if not def.diggable or (def.can_dig and not def.can_dig(pos,digger)) then return end
+	if minetest.is_protected(pos, digger:get_player_name()) then return end
+	if minetest.get_item_group(node.name, "leaves") == 0 then return end
+	local level = minetest.get_item_group(node.name, "level")
+	if rank >= level then
+		local drops = minetest.get_node_drops(node.name, wielded:get_name())
+		minetest.handle_node_drops(pos, drops, digger)
+		minetest.remove_node(pos)
+	end
+end
+function skytest.get_3x3s(pos, digger)
+	local r = {}
+	
+	local a = 0		-- forward/backward
+	if math.abs(pos.x - digger:getpos().x) > 
+		math.abs(pos.z - digger:getpos().z) then a = 1 end -- sideways
+
+	local b = 0		-- horizontal (default)
+	local q = digger:get_look_pitch()
+	if q < -0.78 or q > 0.78 then b = 1 end  -- vertical
+
+	local c = 1
+	for x=-1,1 do
+	for y=-1,1 do
+		if x ~= 0 or y ~= 0 then
+			-- determine next perpendicular node
+			local k = {x=0, y=0, z=0}
+			if a > 0 then
+				k.z = pos.z + x
+				if b > 0 then
+					k.x = pos.x + y
+					k.y = pos.y
+				else
+					k.x = pos.x
+					k.y = pos.y + y
+				end
+			else
+				k.x = pos.x + x
+				if b > 0 then
+					k.y = pos.y
+					k.z = pos.z + y
+				else
+					k.y = pos.y + y
+					k.z = pos.z
+				end
+			end
+
+			r[c] = {x=k.x, y=k.y, z=k.z}
+			c = c + 1
+		end
+	end
+	end
+
+	return r
+end
+
+-- make a list of supported nodes that a chopped node has just dropped
+
+function skytest.get_chopped(pos, group)
+	local r = {}
+
+	-- did the chopped pos have a neighboring log node?
+	local b = 0
+	local p = {x=pos.x - 1,y=pos.y,z=pos.z}
+	if minetest.get_item_group(minetest.get_node(p).name, group) > 0 then b = 1 end
+	p.x = p.x + 2
+	if minetest.get_item_group(minetest.get_node(p).name, group) > 0 then b = 1 end
+	p.x = p.x - 1
+	p.z = p.z - 1
+	if minetest.get_item_group(minetest.get_node(p).name, group) > 0 then b = 1 end
+	p.z = p.z + 2
+	if minetest.get_item_group(minetest.get_node(p).name, group) > 0 then b = 1 end
+
+	-- if not, then proceed
+	local c = 1
+	while b == 0 do
+		p.y = p.y + 1
+		b = -1
+
+		-- 3x3s upward till we run out of tree
+		for x=-1,1 do
+		for z=-1,1 do
+			p.x = pos.x + x
+			p.z = pos.z + z
+			if minetest.get_item_group(minetest.get_node(p).name, group) > 0 then
+				b = 0
+				r[c] = {x=p.x, y=p.y, z=p.z}
+				c = c + 1
+			end
+		end
+		end
+	end
+	return r
+end
+function skytest.after_collector(pos, oldnode, digger)
+	if digger then
+		local wielded = digger:get_wielded_item()
+		local rank = minetest.get_item_group(wielded:get_name(), "collector")
+		if rank > 0 then
+			for _,k in ipairs(skytest.get_3x3s(pos, digger)) do
+				skytest.drop_node(k, digger, wielded, rank)
+			end
+		end
+	end
+end
+
+-- register_on_dignode is used here because after_use does not provide position
+-- which is somewhat annoying
+minetest.register_on_dignode(skytest.after_collector)
+
+minetest.register_tool("skytest:leaf_collector_3x3x1", {
+        description = "leaf collector(3x3x1)",
+        inventory_image = "spears_spear_bronze.png",
+	groups = {collector=1},
+        tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=0,
+		groupcaps = {
+			crumbly = {times={[2]=3.00, [3]=0.70}, uses=7, maxlevel=1},
+			snappy = {times={[3]=0.40}, uses=7, maxlevel=1},
+			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=7}
+		},
+		damage_groups = {fleshy=6},
+	},
+	sound = {breaks = "default_tool_breaks"},
+	range = 12,
+    })
+
+minetest.register_craft({
+        output = "skytest:leaf_collector_normal",
+        recipe = {
+            {"skytest:crook","",""},
+            {"","default:stick",""},
+            {"","","default:stick"},
+        }
+    })
+minetest.register_craft({
+        output = "skytest:leaf_collector_3x3x1",
+        recipe = {
+            {"skytest:crook","skytest:crook","skytest:crook"},
+            {"skytest:crook","skytest:leaf_collector_normal","skytest:crook"},
+            {"skytest:crook","skytest:crook","skytest:crook"},
+        }
+    })
+minetest.register_craft({
+        output = "skytest:leaf_collector_3x3x1",
+        recipe = {
+            {"","",""},
+            {"skytest:comp_crook","skytest:leaf_collector_normal","skytest:comp_crook"},
+            {"","",""},
+        }
+    })
+minetest.register_craft({
+        output = "skytest:leaf_collector_vm",
+        recipe = {
+            {"skytest:comp_crook","skytest:comp_crook","skytest:comp_crook"},
+            {"skytest:comp_crook","skytest:leaf_collector_3x3x1","skytest:comp_crook"},
+            {"skytest:comp_crook","skytest:comp_crook","skytest:comp_crook"},
+        }
+    })
