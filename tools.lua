@@ -80,7 +80,7 @@ minetest.register_craft({
 	output = 'skytest:bucket_wood_empty 1',
 	recipe = {
 		{'group:wood', '', 'group:wood'},
-		{'', 'group:wood', ''},
+		{'default:stick', 'group:wood', 'default:stick'},
 	}
 })
 
@@ -145,6 +145,7 @@ minetest.register_craftitem("skytest:bucket_wood_empty", {
 })
 minetest.register_tool("skytest:stone_hammer", {
         description = "Stone Hammer",
+        _doc_items_usagehelp = "Mine a block of cobble to get gravel, mine gravel to get sand, and mine sand to get dust.",
         inventory_image = "skytest_hammer_stone.png",
         tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -171,6 +172,7 @@ minetest.register_craft({
  -----
 minetest.register_tool("skytest:steel_hammer", {
         description = "Steel Hammer",
+        _doc_items_usagehelp = "Mine a block of cobble to get gravel, mine gravel to get sand, and mine sand to get dust.",
         inventory_image = "skytest_hammer_steel.png",
         tool_capabilities = {
 		full_punch_interval = 1.3,
@@ -192,6 +194,7 @@ minetest.register_craft({
     })
 minetest.register_tool("skytest:mese_hammer", {
         description = "Mese Hammer",
+        _doc_items_usagehelp = "Mine a block of cobble to get gravel, mine gravel to get sand, and mine sand to get dust.",
         inventory_image = "skytest_hammer_mese.png",
         tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -213,6 +216,7 @@ minetest.register_craft({
     })
 minetest.register_tool("skytest:diamond_hammer", {
         description = "Diamond Hammer",
+        _doc_items_usagehelp = "Mine a block of cobble to get gravel, mine gravel to get sand, and mine sand to get dust.",
         inventory_image = "skytest_hammer_diamond.png",
         tool_capabilities = {
 		full_punch_interval = 0.9,
@@ -259,6 +263,7 @@ minetest.register_craft({
     })
 minetest.register_tool("skytest:crook", {
         description = "Crook",
+        _doc_items_usagehelp = "Mine default:leaves to have a higher chance to get sapplings and a low chance to get a silkworm.",
         inventory_image = "ant_hoe.png",
         tool_capabilities = {
 		full_punch_interval = 1.2,
@@ -274,6 +279,7 @@ minetest.register_tool("skytest:crook", {
     })
 minetest.register_tool("skytest:comp_crook", {
         description = "Compressed Crook",
+        _doc_items_usagehelp = "Mine default:leaves to have a MUCH higher chance to get sapplings and a high chance to get a silkworm.",
         inventory_image = "ant_hoe.png",
         tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -287,19 +293,10 @@ minetest.register_tool("skytest:comp_crook", {
 	},
 	sound = {breaks = "default_tool_breaks"},
     })
-minetest.register_tool("skytest:silkworm", {
+minetest.register_craftitem("skytest:silkworm", {
         description = "Silkworm",
+        _doc_items_usagehelp = "Use on default:leaves to infest them, infested leaves spread to anything in the group:leaves. infested leaves have a high chance to drop a silkworm when using a crook(crook chances:25%  compressed crook chances:100%). can be cooked and eaten",
         inventory_image = "silkworm.png",
-        tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=0,
-		groupcaps = {
-			crumbly = {times={[2]=3.00, [3]=0.70}, uses=100, maxlevel=1},
-			snappy = {times={[3]=0.40}, uses=100, maxlevel=1},
-			oddly_breakable_by_hand = {times={[1]=3.50,[2]=2.00,[3]=0.70}, uses=100}
-		},
-		damage_groups = {fleshy=6},
-	},
         on_use = function(itemstack, user, pointed_thing)
 			  if minetest.get_node(pointed_thing.under).name == "default:leaves" then
 				minetest.set_node(pointed_thing.under, {name = "skytest:infested_leaves"})
@@ -307,11 +304,10 @@ minetest.register_tool("skytest:silkworm", {
 				return itemstack
 			end
 	end,
-	sound = {breaks = "default_tool_breaks"},
-	stack_max = 99,
     })
 minetest.register_tool("skytest:leaf_collector_vm", {
         description = "leaf collector(vein mine leaves)",
+        _doc_items_usagehelp = "Use to get those leaves that are just to high. Will vain mine leaves(mine all that are connected the one mined at once)",
         inventory_image = "spears_spear_bronze.png",
         tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -328,6 +324,7 @@ minetest.register_tool("skytest:leaf_collector_vm", {
     })
 minetest.register_tool("skytest:leaf_collector_normal", {
         description = "leaf collector(extra reach)",
+        _doc_items_usagehelp = "Use to get those leaves that are just to high.",
         inventory_image = "spears_spear_bronze.png",
         tool_capabilities = {
 		full_punch_interval = 1.0,
@@ -528,6 +525,7 @@ minetest.register_on_dignode(skytest.after_collector)
 
 minetest.register_tool("skytest:leaf_collector_3x3x1", {
         description = "leaf collector(3x3x1)",
+        _doc_items_usagehelp = "Use to get those leaves that are just to high. Will mine a 3X3X1 cube of leaves.",
         inventory_image = "spears_spear_bronze.png",
 	groups = {collector=1},
         tool_capabilities = {

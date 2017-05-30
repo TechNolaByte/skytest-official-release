@@ -1,26 +1,55 @@
-
 minetest.register_craftitem("skytest:cloth_fiber", {
 	description = "Cloth Fiber",
     inventory_image = "sieve_cloth_fiber.png",
 	})
+minetest.register_craft({
+        output = "skytest:enchanted_fiber",
+        recipe = {
+            {"skytest:silk","skytest:silk","skytest:silk"},
+            {"skytest:silk","skytest:enchanted_block","skytest:silk"},
+            {"skytest:silk","skytest:silk","skytest:silk"},
+        }
+    })
+minetest.register_craft({
+        output = "skytest:enchanted_fabric",
+        recipe = {
+            {"skytest:enchanted_fiber","skytest:enchanted_fiber","skytest:enchanted_fiber"},
+            {"skytest:enchanted_fiber","skytest:enchanted_fiber","skytest:enchanted_fiber"},
+            {"skytest:enchanted_fiber","skytest:enchanted_fiber","skytest:enchanted_fiber"},
+        }
+    })
+minetest.register_craftitem("skytest:enchanted_fiber", {
+	description = "Enchanted Fiber",
+    inventory_image = "5.png",
+	})
+minetest.register_craftitem("skytest:enchanted_fabric", {
+	description = "Enchanted Fabric",
+    inventory_image = "2.png",
+	})
+minetest.register_craftitem("skytest:enchanted_crystal", {
+	description = "Enchanted crystal",
+    inventory_image = "enchanted_crystal.png",
+	})
 minetest.register_craftitem("skytest:pebble", {
 	description = "Pebble",
+        _doc_items_usagehelp = "Obtained from sifting dirt.",
 	inventory_image = "pebble.png",
 	})
-minetest.register_tool("skytest:grass_seeds", {
+minetest.register_craftitem("skytest:grass_seeds", {
         description = "Grass seeds",
+        _doc_items_usagehelp = "Use to turn dirt into grass.",
         inventory_image = "farming_cotton_seed.png",
         on_use = function(itemstack, user, pointed_thing)
-			  if minetest.get_node(pointed_thing.under).name == "group:soil" then
+			  if minetest.get_node(pointed_thing.under).name == "default:dirt" then
 				minetest.set_node(pointed_thing.under, {name = "default:dirt_with_grass"})
 				itemstack:take_item()
 				return itemstack
 			end
 	end,
-	stack_max = 99,
     })
 minetest.register_craftitem("skytest:silk", {
     description = "Silk",
+    _doc_items_usagehelp = "Obtained from mining infested leaves with a crook or compressed crook.",
     inventory_image = "silk.png",
 })
 minetest.register_craftitem("skytest:silk_mesh", {
@@ -44,44 +73,65 @@ minetest.register_craft({
         }
     })
 for name, data in pairs({
-    jungle_tree = {
+    jungle_tree_seeds = {
         mat = "default:junglesapling",
 	tex = "farming_cotton_seed.png",
     },
-    aspen_tree = {
+    aspen_tree_seeds = {
         mat = "default:aspen_sapling",
 	tex = "farming_cotton_seed.png",
     },
-    acacia_tree = {
+    acacia_tree_seeds = {
         mat = "default:acacia_sapling",
         tex = "farming_cotton_seed.png",
     },
-    pine_tree = {
+    pine_tree_seeds = {
         mat = "default:pine_sapling",
 	tex = "farming_cotton_seed.png",
     },
-    oak_tree = {
+    oak_tree_seeds = {
         mat = "default:sapling",
 	tex = "farming_cotton_seed.png",
     },
-    papyrus = {
+    papyrus_seeds = {
         mat = "default:papyrus",
 	tex = "bamboo_sprout.png",
     },
-    cactus = {
+    cactus_seeds = {
         mat = "default:cactus",
 	tex = "uranium_lump.png",
     },
+    strawberrybush_seeds = {
+        mat = "bushes:strawberry_empty",
+	tex = "redseed.png",
+    },
+    raspberrybush_seeds = {
+        mat = "bushes:raspberry_empty",
+	tex = "redseed.png",
+    },
+    iron_ore_chunks = {
+        mat = "default:iron_lump",
+	tex = "iron_chunks.png",
+    },
+    diamond_chunks = {
+        mat = "default:diamond",
+	tex = "diamond_chunks.png",
+    },
+    gold_ore_chunks = {
+        mat = "default:gold_lump",
+	tex = "gold_chunks.png",
+    },
 }) do
-minetest.register_craftitem("skytest:"..name.."_seeds", {
-	description = ""..name.." seeds",
+minetest.register_craftitem("skytest:"..name.."", {
+	description = ""..name.."",
+        _doc_items_usagehelp = "craft in a 2x2 to get "..data.mat..".",
 	inventory_image = data.tex,
 })
 minetest.register_craft({
         output = data.mat,
         recipe = {
-            {"skytest:"..name.."_seeds","skytest:"..name.."_seeds",""},
-            {"skytest:"..name.."_seeds","skytest:"..name.."_seeds",""},
+            {"skytest:"..name.."","skytest:"..name.."",""},
+            {"skytest:"..name.."","skytest:"..name.."",""},
             {"","",""},
         }
     })
@@ -89,30 +139,9 @@ end
 -- Mesh
 minetest.register_craftitem("skytest:mesh", {
 	description = "Fiber Mesh",
+    _doc_items_usagehelp = "Use on empty sieve to turn it into a sieve.",
     inventory_image = "sieve_mesh.png",
 	})
---Shaker Motor
-minetest.register_craftitem("skytest:shaker_motor", {
-    description = "Shaker Motor",
-    inventory_image = "sieve_shaker_motor.png",
-    })
---Shaker Frame
-minetest.register_craftitem("skytest:shaker_frame", {
-    description = "Shaker Frame",
-    inventory_image = "sieve_shaker_frame.png",
-    })
---Auto Top
-minetest.register_craftitem("skytest:auto_sieve_top", {
-    description = "Auto Sieve Top",
-    inventory_image = "sieve_auto_top.png",
-})
---Auto Legs
-minetest.register_craftitem("skytest:auto_sieve_legs", {
-    description = "Auto Sieve Legs",
-    inventory_image = "sieve_auto_legs.png",
-})
-
-
 minetest.register_craft({
     output = "skytest:cloth_fiber",
     recipe = {
@@ -130,14 +159,6 @@ minetest.register_craft({
         }
     })
 minetest.register_craft({
-        output = "skytest:pebble",
-        recipe = {
-            {"default:dirt","",""},
-            {"","",""},
-            {"","",""},
-        }
-    })
-minetest.register_craft({
         output = "skytest:mesh",
         recipe = {
             {"group:wood","skytest:cloth_fiber","group:wood"},
@@ -146,50 +167,34 @@ minetest.register_craft({
         }
     })
 minetest.register_craft({
-    output = "skytest:shaker_motor 2",
+    output = "skytest:empty_sieve",
     recipe = {
-        {"", "",""},
-        {"default:cobble", "default:steel_ingot","default:cobble"},
-        {"default:cobble", "default:copper_ingot","default:cobble"},
+        {"group:wood", "", "group:wood"},
+        {"group:wood", "group:stick", "group:wood"},
+        {"group:stick", "", "group:stick"}
     }
 })
 minetest.register_craft({
-    output = "skytest:shaker_frame 1",
+    output = "skytest:enchanted_crystal",
     recipe = {
-        {"default:steel_ingot", "skytest:shaker_motor","default:steel_ingot"},
-        {"skytest:shaker_motor", "default:furnace","skytest:shaker_motor"},
-        {"default:steel_ingot", "skytest:shaker_motor","default:steel_ingot"},
+            {"skytest:glowstone","skytest:redstone","skytest:lapis"},
+            {"skytest:glowstone","skytest:lapis","skytest:glowstone"},
+            {"skytest:lapis","skytest:redstone","skytest:glowstone"},
     }
 })
 minetest.register_craft({
-    output = "skytest:hand_sieve",
+    output = "skytest:enchanted_crystal 9",
     recipe = {
-        {"group:stick", "group:stick", "group:stick"},
-        {"group:wood", "skytest:mesh", "group:wood"},
-        {"group:wood", "group:wood", "group:wood"}
+            {"skytest:glowstone_block","skytest:redstone_block","skytest:lapis_block"},
+            {"skytest:glowstone_block","skytest:lapis_block","skytest:glowstone_block"},
+            {"skytest:lapis_block","skytest:redstone_block","skytest:glowstone_block"},
     }
 })
 minetest.register_craft({
-    output = "skytest:auto_sieve_top",
+    output = "skytest:enchanted_crystal 9",
     recipe = {
-        {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
-        {"default:steel_ingot", "skytest:mesh", "default:steel_ingot"},
-        {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"}
-    }
-})
-minetest.register_craft({
-    output = "skytest:auto_sieve_legs",
-    recipe = {
-        {"default:steel_ingot", "skytest:shaker_frame", "default:steel_ingot"},
-        {"default:steel_ingot", "", "default:steel_ingot"}
-    }
-})
-minetest.register_craft({
-    output = "skytest:auto_sieve",
-    recipe = {
-        {"skytest:auto_sieve_top"},
-        {"skytest:auto_sieve_legs"}
-    }
+            {"skytest:enchanted_block"},
+            }
 })
 minetest.register_craftitem("skytest:redstone", {
 	description = "Redstone",
@@ -244,4 +249,17 @@ minetest.register_craft({
 		{'skytest:glowstone', 'skytest:glowstone'},
 		{'skytest:glowstone', 'skytest:glowstone'},
 	}
+})
+minetest.register_craftitem("skytest:cooked_silkworm", {
+        description = "Rosted silkworm",
+        _doc_items_usagehelp = "can be eaten",
+        inventory_image = "silkworm.png",
+	on_use = minetest.item_eat(2),
+    })
+
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 15,
+	output = "skytest:cooked_silkworm",
+	recipe = "skytest:silkworm"
 })

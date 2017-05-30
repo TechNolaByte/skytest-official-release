@@ -13,6 +13,12 @@ minetest.register_craft({
             {"default:mese_crystal_fragment","group:soil","default:mese_crystal_fragment"},
         }
     })
+minetest.register_craft({
+        output = "skytest:magicly_infused_soil",
+        recipe = {
+            {"skytest:enchanted_crystal","group:soil"},
+        }
+    })
 
 for name, data in pairs({
     copper = {
@@ -43,6 +49,7 @@ for name, data in pairs({
     
 minetest.register_node("skytest:"..name.."_infused_soil", {
 	description = ""..name.." infused soil",
+        _doc_items_usagehelp = "When touching water will slowly grow "..name.." papyrus wich can be broken to drop"..data.mat.."(will grow higher and higher untill broken).",
 	tiles = {"brilliance_dirt.png", "brilliance_dirt.png", "brilliance_dirt.png^"..data.tex..""},
 	is_ground_content = false,
 	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
@@ -103,6 +110,7 @@ end,
 })
 minetest.register_node("skytest:super_"..name.."_infused_soil", {
 	description = ""..name.." infused soil",
+        _doc_items_usagehelp = "When touching a growth crystal will rapidly grow "..name.." sprouts wich can be broken to drop"..data.mat.."(will only grow one high).",
 	tiles = {"brilliance_grass.png", "brilliance_grass.png", "brilliance_grass.png^"..data.tex..""},
 	is_ground_content = false,
 	groups = {tree=1,choppy=2,oddly_breakable_by_hand=1,flammable=2},
@@ -113,7 +121,7 @@ minetest.register_craft({
         recipe = {
             {"skytest:"..name.."_infused_soil",data.mat,"skytest:"..name.."_infused_soil"},
             {data.mat,"skytest:"..name.."_infused_soil",data.mat},
-            {"skytest:"..name.."_infused_soil","skytest:cobblegen","skytest:"..name.."_infused_soil"},
+            {"skytest:"..name.."_infused_soil","skytest:enchanted_block","skytest:"..name.."_infused_soil"},
         }
     })
 

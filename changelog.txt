@@ -1,0 +1,186 @@
+--------------------1.3--------------------
+-added angel block with wich one can fly and use to place a block under your feet
+-added oak, aspen, pine, jungle, and acacia wooden barrels(all work exactly the same)
+-if extra_util mod is enabled(another of my mods, currently unreleased){ 
+-dsu cannot hold tools
+-added DSU(Deep Storage Unit)holds 2,000,000 of ONE item. can be transporteed by using the formspec(dont break of you will lose all items in it.)crafted with bedrockium ingots and 1 enchanted block
+}
+-if 3d_armor mod is enabled{ 
+-added a pair o' wings(grants the fly priv. while wearing them)
+}
+-if pipeworks mod is enabled{ 
+-added pipe support for DSU, all drawers(all woods + 1x1 1x2 2x2 drawers)
+-if using pipeworks + mesecons you can automate pretty much every thing by using deployers and node breakers. deployers will prety much rightclick on any block with what every is in theier inventory. nodebreakers will break nodes...BUT you can insert any tool and it will yeild the same results as if you used the same tool on the node, meaning you can use hammers, crooks, silkworms, ect.
+}
+-if MCL_core mod is enabled{ 
+-added support for all types of wood for drawers
+}
+-added achievement book with a few goals in it already(more to come)
+-added x1 x2 and x4 storage drawers for all wood types
+-all leaf colectors can be used on infested leaves to collect them
+-added enchanted crystal and enchanted block(used to craft stuff)
+-added entity jetpack( use arow keys, spacebar, and shift key to control)warnign is effected by lag, fly at your own risk-silkworms can be cokked and eaten
+-rightclick on a wooden barrel that is full of water with dust and the barrel will fill with clay. Rightclick to retrieve the clay block
+-added Mk2 cobble gen
+-added doc support for (almost) every item / block/ tool that actuly does something
+-removed dense leaves
+-removed leaf press(the one with the gui/inventory/formspec and ABM)
+-use a leaf weight on a wooden barrel then fill with either cactus of "group:leaves" and wait (after 32 seconds mit will extract the water frop the items, at wich point using a wooden or iron bucket will be fill the with water)  
+-removed compost bin gui/inventory/formspec
+-replaced compostbin with wooden barrel(the same items can be composted)barrel will work just like the one in minecraft(used to get dirt, water, clay, ect.)
+-wooden barrel has a decomposing animation
+-added all the colors of mulch(blue, green, ect.)mulch is affected by gravity
+-added advanced compost bin(like regular but can get you clay and mulch as well, also works instantly and can color mulch)
+-added porcelain lumps(use to craft raw crucible)
+-added Raw crucible(smelt into fired crucible)
+-added Fired crucible(input 8 cobble and place a torch or anything from group:igniter directly under to slowly melt the cobble into lava) igniter will work faster than torch. when the lava is done use a iron bucket
+-added an uncraftable item for testing that tells you how many registerd items nodes and tools there are in that world(lists all strings in items file in world folder)
+-removed auto sieves' gui/inventory/formspec
+-auto sieve now only sieves faster than normal sieve
+-auto sieve drops 2X that of normal sieve
+-normal sieve is now a multi block structure(just like minecraft)
+-sieves can now drop these items{
+listed rarest to most common
+dirt will drop 1 item and 1 pebble
+dirt:
+"skytest:strawberrybush_seeds"
+"skytest:raspberrybush_seeds"
+"skytest:pine_tree_seeds"
+"skytest:pebble 7"
+"skytest:acacia_tree_seeds"
+"skytest:aspen_tree_seeds"
+"skytest:oak_tree_seeds"
+"farming_plus:banana_sapling"
+"farming_plus:cocoa_sapling"
+"skytest:jungle_tree_seeds"
+"skytest:cactus_seeds"
+"skytest:papyrus_seeds"
+"farming_plus:tomato_seed"
+"farming_plus:rhubarb_seed"
+"skytest:pebble 3"
+"farming_plus:carrot_seed"
+"crops:tomato_seed"
+"crops:green_bean_seed"
+"crops:potato_eyes"
+"crops:melon_seed"
+"crops:pumpkin_seed"
+"crops:corn"
+"skytest:pebble 2"
+"morefarming:seed_corn"
+"farming_plus:strawberry_seed"
+"farming_plus:orange_seed"
+"farming_plus:potato_seed"
+"skytest:grass_seeds"
+"farming:seed_wheat"
+"farming:seed_cotton"
+"morefarming:seed_wildcarrot"
+"morefarming:seed_teosinte"
+
+gravel sand and dust:
+"skytest:diamond_chunks"
+"default:mese_crystal_fragment 3"
+"skytest:gold_chunks"
+"skytest:lapis"
+"skytest:redstone"
+"skytest:glowstone"
+"skytest:iron_chunks"
+"default:copper_lump"
+"default:coal_lump"
+"default:flint"
+
+(gravel will drop 1 item at a time, sand 2, and dust 3)
+growth crystal will drop 2 items from gravel and 2 items from dirt(in auto sieve it will render 4 dirt items and 4 gravel items)
+}
+-various bug fixes
+-various new crafting items and recipies for making stuff
+-removed enirboreh
+
+--------------------1.2--------------------
+
+-added leaf collector normal(use for extra reach to get those last leaves)
+-added leaf collector 3x3x1(extra reach + mine a 3x3x1 area)
+-added leaf collector VM (extra reach + vein mines leaves)
+-added crafts for all leaf collectors
+-added coal, diamond, steel, copper, gold, and mese super infused dirt(when active,  will rapidly grow the corresponding sprouts on top. sprouts will only grow 1 tall.)
+-added coal, diamond, steel, copper, gold and mese super sprouts
+-added growth crystal(will activate all super infused dirt within a 1 block radius.)
+-removed bronze hammer
+-changed hammer texture
+-all items in flora, leaves, flower groups can now be composted.
+-you can also now compost {  
+        'default:cactus',
+   'default:papyrus',
+   'default:dry_shrub',
+   'default:junglegrass',
+   'default:grass_1',
+   'default:dry_grass_1',
+   'farming:wheat',
+   'farming:straw',
+   'farming:cotton',
+   'skytest:silk',
+   'skytest:silkworm',
+}
+-removed enirboreh
+
+--------------------1.1--------------------
+
+-added {
+farming:seeds_wheat
+farming:seeds_cotton
+skytest:grass_seeds
+skytest:papyrus_seeds
+skytest:pine_tree_seeds
+skytest:jungle_tree_seeds
+skytest:acacia_tree_seeds
+skytest:aspen_tree_seeds
+skytest:oak_tree_seeds
+default:flint
+skytest:lapis
+skytest:cactus_seeds
+skytest:jungle_tree_seeds
+tnt:gunpowder
+skytest:redstone
+skytest:glowstone
+crops:tomato_seed
+crops:green_bean_seed
+crops:potato_eyes
+crops:melon_seed
+crops:pumpkin_seed
+crops:corn
+farming_plus:banana_sapling
+farming_plus:tomato_seed
+farming_plus:rhubarb_seed
+farming_plus:strawberry_seed
+farming_plus:orange_seed
+farming_plus:potato_seed
+farming_plus:cocoa_sapling
+farming_plus:carrot_seed
+morefarming:teosinte
+morefarming:wildcarrot
+morefarming:carrot
+morefarming:corn
+morefarming:seed_wildcarrot
+morefarming:seed_teosinte
+bushes:strawberry_empty
+bushes:raspberry_empty
+} to possible sieve drops
+-fixed all infused ore dirt(to grow them they must have water beside them, either flowing or source)
+
+--------------------1.0--------------------
+
+-added stone, steel, bronze, diamond and mese hammers
+-added sieve and auto sieve
+-added support for pipeworks with the auto sieve
+-added pebbles for crafting cobble
+-added silkworms, silk, and silk mesh
+-added cobble generator 
+-added fibrous mesh and cloth fiber
+-added crook and compressed crook
+-added added infested leaves
+-added leaf press (for getting water)
+-added dense leaves(the leaf press uses 8 dense leaves)
+-added compost bin (for getting dirt)
+-added infused dirt
+-added coal, diamond, steel, copper, gold and mese infused dirt
+-added coal, diamond, steel, copper, gold and mese papy
+-added wooden bucket(can't pick up lava)
