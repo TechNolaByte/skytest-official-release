@@ -121,6 +121,14 @@ for name, data in pairs({
         mat = "default:gold_lump",
 	tex = "gold_chunks.png",
     },
+    tin_ore_chunks = {
+        mat = "default:tin_lump",
+	tex = "tin_chunks.png",
+    },
+    copper_ore_chunks = {
+        mat = "default:copper_lump",
+	tex = "copper_chunks.png",
+    },
 }) do
 minetest.register_craftitem("skytest:"..name.."", {
 	description = ""..name.."",

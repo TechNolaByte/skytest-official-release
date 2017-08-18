@@ -21,8 +21,8 @@ minetest.register_craft({
     })
 minetest.register_craft({
 	type = "cooking",
-	output = "skytest:rawcrucible",
-	recipe = "skytest:crucible"
+	output = "skytest:crucible",
+	recipe = "skytest:rawcrucible",
 })
 
 minetest.register_node("skytest:rawcrucible", {
@@ -333,6 +333,12 @@ minetest.register_node("skytest:crucible_full", {
 	    pos.y = pos.y + 0.5
 	    itemstack:take_item(1)
             minetest.add_item(pos, "bucket:bucket_lava")
+end
+if itemstack:get_name() == "skytest:bucket_clay_empty" then
+	    minetest.set_node(pos, {name="skytest:crucible"})
+	    pos.y = pos.y + 0.5
+	    itemstack:take_item(1)
+            minetest.add_item(pos, "skytest:bucket_clay_lava")
             return itemstack
          end
     end,

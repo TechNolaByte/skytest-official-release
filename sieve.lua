@@ -33,19 +33,20 @@ local percentdirt = {
     {"morefarming:seed_teosinte", 33},
 }
 local percentgravel = {
-    {"skytest:diamond_chunks", 10},
-    {"default:mese_crystal_fragment 3", 13},
-    {"skytest:gold_chunks", 16},
-    {"skytest:lapis", 21},
-    {"skytest:redstone", 25},
-    {"skytest:glowstone", 27},
-    {"skytest:iron_chunks", 33},
-    {"default:copper_lump", 35},
-    {"default:coal_lump", 38},
-    {"default:flint", 40},
+    {"skytest:diamond_chunks", 5},
+    {"default:mese_crystal_fragment 3", 7},
+    {"skytest:gold_ore_chunks", 9},
+    {"skytest:lapis", 11},
+    {"skytest:redstone", 13},
+    {"skytest:glowstone", 15},
+    {"skytest:tin_ore_chunks", 17},
+    {"skytest:copper_ore_chunks", 19},
+    {"skytest:iron_ore_chunks", 24},
+    {"default:coal_lump", 28},
+    {"default:flint", 34},
 }
 function gravel()
-    local chance = math.random(50)
+    local chance = math.random(40)
     for _,v in pairs(percentgravel) do
         if chance<v[2] then
             return ItemStack(v[1])

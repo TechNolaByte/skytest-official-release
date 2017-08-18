@@ -80,7 +80,6 @@ end)
 minetest.register_on_joinplayer(function (player)
   wings.huds[player] = {}
 end)
-
 minetest.register_craftitem("skytest:wings", {
 	description = "A pair o' wings",
 	inventory_image = "wings_item.png",

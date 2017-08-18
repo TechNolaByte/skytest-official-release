@@ -6,7 +6,8 @@ morefarming
 bushes
 farming
 dye
-
+smartfs
+awards?
 extra_util?
 mcl_core?
 
@@ -14,7 +15,9 @@ screwdriver?
 
 pipeworks?
 
+technic?
 intllib?
 
+digilines?
 3d_armor?
 doc?

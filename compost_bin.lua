@@ -122,13 +122,13 @@ minetest.register_node("skytest:"..name.."_wood_barrel_empty", {
 	paramtype = "light",
 	is_ground_content = false,
         groups = {oddly_breakable_by_hand=1},
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin1_8"})
 	   	 itemstack:take_item(1)
             	 return itemstack		
 	end
-         if itemstack:get_name() == "skytest:leaf_weight" then
+	   if itemstack:get_name() == "skytest:leaf_weight" then
 		 minetest.set_node(pos, {name="skytest:"..name.."_wood_press_empty"})
 	   	 itemstack:take_item(1)
             	 return itemstack
@@ -140,12 +140,19 @@ minetest.register_node("skytest:"..name.."_wood_barrel_empty", {
 	   	 itemstack:take_item(1)
             minetest.add_item(pos, "skytest:bucket_wood_empty")
             return itemstack
-  	end  
+  	end 
 	  if itemstack:get_name() == "bucket:bucket_water" then
             minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible_full"})
 	    pos.y = pos.y + 0.5
 	   	 itemstack:take_item(1)
             minetest.add_item(pos, "bucket:bucket_empty")
+            return itemstack
+  	end  
+	  if itemstack:get_name() == "skytest:bucket_clay_water" then
+            minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible_full"})
+	    pos.y = pos.y + 0.5
+	   	 itemstack:take_item(1)
+            minetest.add_item(pos, "skytest:bucket_clay_empty")
             return itemstack
   	end  
 end,
@@ -171,7 +178,7 @@ minetest.register_node("skytest:"..name.."_wood_press_empty", {
 	is_ground_content = false,
 	drop = "skytest:"..name.."_wood_barrel_empty",
         groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
          if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible1_8"})
 	   	 itemstack:take_item(1)
@@ -202,7 +209,7 @@ minetest.register_node("skytest:"..name.."_compostbin1_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 			if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin2_8"})
 	   	 itemstack:take_item(1)
@@ -232,7 +239,7 @@ minetest.register_node("skytest:"..name.."_compostbin2_8", {
         drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		minetest.set_node(pos, {name="skytest:"..name.."_compostbin3_8"})
 	   	 itemstack:take_item(1)
@@ -262,7 +269,7 @@ minetest.register_node("skytest:"..name.."_compostbin3_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin4_8"})
 	   	 itemstack:take_item(1)
@@ -293,7 +300,7 @@ minetest.register_node("skytest:"..name.."_compostbin4_8", {
   	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin5_8"})
 	   	 itemstack:take_item(1)
@@ -324,7 +331,7 @@ minetest.register_node("skytest:"..name.."_compostbin5_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin6_8"})
 	   	 itemstack:take_item(1)
@@ -355,7 +362,7 @@ minetest.register_node("skytest:"..name.."_compostbin6_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin7_8"})
 	   	 itemstack:take_item(1)
@@ -385,7 +392,7 @@ minetest.register_node("skytest:"..name.."_compostbin7_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_compostable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_compostbin8_8"})
 	   	 itemstack:take_item(1)
@@ -396,7 +403,7 @@ minetest.register_node("skytest:"..name.."_compostbin7_8", {
 })
 minetest.register_node("skytest:"..name.."_compostbin8_8", {
 	description = "",
-	tiles = {{name="compost2.png",animation={type="vertical_frames", length=32.5}},
+	tiles = {{name=data.tex.."^compost2.png",animation={type="vertical_frames", length=32.5}},
 		data.tex},
 	drawtype = "nodebox",
 	node_box = {
@@ -446,6 +453,9 @@ minetest.register_node("skytest:"..name.."_compostbin_full", {
 	    minetest.set_node(pos, {name="skytest:"..name.."_wood_barrel_empty"})
 	    pos.y = pos.y + 0.5
             minetest.add_item(pos, "default:dirt")
+if(minetest.get_modpath("awards22")~=nil) then
+awards22.unlock(player:get_player_name(), "skytest:obtain_dirt_from_composting")
+end
             return itemstack
     end,
 })
@@ -485,7 +495,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible1_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 			if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible2_8"})
 	   	 itemstack:take_item(1)
@@ -515,7 +525,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible2_8", {
         drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_pressable(itemstack:get_name()) then
 		minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible3_8"})
 	   	 itemstack:take_item(1)
@@ -545,7 +555,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible3_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible4_8"})
 	   	 itemstack:take_item(1)
@@ -576,7 +586,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible4_8", {
   	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible5_8"})
 	   	 itemstack:take_item(1)
@@ -607,7 +617,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible5_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible6_8"})
 	   	 itemstack:take_item(1)
@@ -638,7 +648,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible6_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible7_8"})
 	   	 itemstack:take_item(1)
@@ -668,7 +678,7 @@ minetest.register_node("skytest:"..name.."_woodcrucible7_8", {
 	drop = "skytest:"..name.."_wood_barrel_empty",
 	 groups = {oddly_breakable_by_hand=1, not_in_creative_inventory = 1},
 
-	on_rightclick = function(pos, node, clicker, itemstack)
+	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 		if is_pressable(itemstack:get_name()) then
 		 minetest.set_node(pos, {name="skytest:"..name.."_woodcrucible8_8"})
 	   	 itemstack:take_item(1)
@@ -733,13 +743,29 @@ minetest.register_node("skytest:"..name.."_woodcrucible_full", {
 	    pos.y = pos.y + 0.5
 	   	 itemstack:take_item(1)
             minetest.add_item(pos, "skytest:bucket_wood_water")
+if(minetest.get_modpath("awards22")~=nil) then
+awards22.unlock(player:get_player_name(), "skytest:obtain_water_from_barrel")
+end
             return itemstack
-  	end  
+  	end 
 	  if itemstack:get_name() == "bucket:bucket_empty" then
             minetest.set_node(pos, {name="skytest:"..name.."_wood_barrel_empty"})
 	    pos.y = pos.y + 0.5
 	   	 itemstack:take_item(1)
             minetest.add_item(pos, "bucket:bucket_water")
+if(minetest.get_modpath("awards2")~=nil) then
+awards2.unlock(player:get_player_name(), "skytest:obtain_water_from_barrel")
+end
+            return itemstack
+  	end   
+	  if itemstack:get_name() == "skytest:bucket_clay_empty" then
+            minetest.set_node(pos, {name="skytest:"..name.."_wood_barrel_empty"})
+	    pos.y = pos.y + 0.5
+	   	 itemstack:take_item(1)
+            minetest.add_item(pos, "skytest:bucket_clay_water")
+if(minetest.get_modpath("awards2")~=nil) then
+awards2.unlock(player:get_player_name(), "skytest:obtain_water_from_barrel")
+end
             return itemstack
   	end  
           if itemstack:get_name() == "skytest:dust" then
@@ -774,6 +800,9 @@ minetest.register_node("skytest:"..name.."_wood_barrel_clay", {
             minetest.set_node(pos, {name="skytest:"..name.."_wood_barrel_empty"})
 	    pos.y = pos.y + 0.5
             minetest.add_item(pos, "default:clay")
+if(minetest.get_modpath("awards2")~=nil) then
+awards2.unlock(player:get_player_name(), "skytest:obtain_clay_from_barrel")
+end
     end,
 })
 end

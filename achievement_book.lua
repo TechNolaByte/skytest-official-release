@@ -12,7 +12,6 @@ A new age dawns before you! You don't have anything to work with but this tree, 
 >Make Dirt by composting saplings, leaves, or most flowers and plants in any wooden Barrel.
 >Infest leaves with a Silkworm.
 >Use any Crook on Infested Leaves to get silk.
->Craft a Empty Sieve, silkmesh, mesh.
 >Place empty sieve and use mesh on it to make a sieve.(sieve atleast 5 blocks)
 >Craft and use a leaf press on any empty barrel to prepare it for pressing leaves.
 >Press leaves or cactus in any wodden barrel with press to get water.
@@ -71,6 +70,7 @@ Your skill with technology is growing. Automation is key.
 >Set up a working technic machine grid/system.
 >Automate crop harvesting with pipeworks constructers or node breakers and placers.
 >Craft and place a DSU(Deep Storage Unit).
+>craft any me driver and me chest.
 
 
 ------------------------Age Of Power---------------------
@@ -86,6 +86,7 @@ At last you've got your production going and your machines are hard at work. It'
 >Fill a 16x16 area completely with Triple Compressed cobble.(Ssundee)
 >Fill a 16x16 area completely with Triple Compressed dirt.(Mr.Crainer)
 >Craft and use a node enhancer to break the game and double items/blocks.
+>Fill any me drive with any 1 item
 
 ------------------------Most Important-------------------
 
@@ -114,6 +115,12 @@ local function make_formspec()
 	table.insert(fs, "textarea[0.5,0.5;8,7;TOS;Achievements;"..TOS.."]")
 	return table.concat(fs)
 end
+myform = smartfs.create("skytest:achievements",function(state)
+    state:size(11,11)
+    state:label(2,0,"lbl","SmartFS example formspec!")
+    state:checkbox(2,1,"c","Easy code",false)
+    return true
+end)
 minetest.register_craftitem("skytest:achievement_book", {
 	description = "Achievement book",
 	_doc_items_longdesc = "Allows you to access the achievements.",
@@ -132,7 +139,7 @@ minetest.show_formspec(user:get_player_name(), FORMNAME, make_formspec())
 		output = "skytest:achievement_book",
 		recipe = {
 			{ "default:book" },
-			{ "" },
+			{ "skytest:silk" },
 			{ "default:book" },
 		}
 	})
@@ -143,4 +150,3 @@ minetest.register_craft({
 	recipe = "skytest:achievement_book",
 	burntime = 6,
 })
-minetest.register_privilege("tos_accepted", "TOS Accepted")

@@ -1,4 +1,43 @@
+--------------------1.4--------------------
+
+- added Growth essence to instant grow any of the ore crops
+-tweaked growth rates of ore papy
+-added fountain looking infinite water source. right click with any empty bucket and get infinite water
+-added blank seeds and ore plants just like magical crops in minecraft
+-ore papyrus now drops itself wich then needs to be crafted in a 3x3 to get respective ore, super sprouts still drop ore
+-fixed transparency on hammer textures 
+-diamond hammer mines sand and gravel the same speed as a steel shovel
+-added copper and tin ore chunks
+-fixed barrels barrels and crucibles top texture always showing oak wood
+-added world ancor(will keep a portion of the world always loaded)
+-clay bucket is now compatable with barrels and crucibles
+-added lapis,redstone, glowstone, and tin, infused dirt and super infused dirt
+-various tweaks to sieves and machines now run smoother 
+-added clay bucket for getting lava from crucible
+-added climing pick that replicates the sneak glitch 
+-added engraver(only works for 0.4.16 and newer) right click with any item to change the discription of it.(like Minecraft anvil)
+-added achievements for most of the ones in the achievement book to detect and update automaticly
+-added freezer that can turn water into ice...nice. will also cool lava 
+-added working formspec bassed tetris game to play. Perfect for me cus we all know I have no friends :(
+-added working formspec bassed chess game to play with friends. Usless if your alone like me :(
+-just for fun, nyan cats will now move leaving a trail of rainbows, if on ehits an unloaded chunk or a block besids air it will change direction
+-added chisel to chisel blocks into differant shapes
+-chisel has 7 modes{
+#1:Chisel 4 Edges
+#2:Horizontal Groove
+#3:Vertical Groove
+#4:Cross Grooves
+#5:Square
+#6:Chisel ladder
+#7:Chisel Foot Hold
+}
+-added super bright star light that produces far more than 14 light level
+-various bug fixes
+-various new crafting items and recipies for making stuff
+-removed enirboreh
+
 --------------------1.3--------------------
+
 -added angel block with wich one can fly and use to place a block under your feet
 -added oak, aspen, pine, jungle, and acacia wooden barrels(all work exactly the same)
 -if extra_util mod is enabled(another of my mods, currently unreleased){ 
@@ -19,7 +58,8 @@
 -added x1 x2 and x4 storage drawers for all wood types
 -all leaf colectors can be used on infested leaves to collect them
 -added enchanted crystal and enchanted block(used to craft stuff)
--added entity jetpack( use arow keys, spacebar, and shift key to control)warnign is effected by lag, fly at your own risk-silkworms can be cokked and eaten
+-added entity jetpack( use arow keys, spacebar, and shift key to control)warnign is effected by lag, fly at your own risk
+-silkworms can be cooked and eaten(If you have a stomoch of iron)
 -rightclick on a wooden barrel that is full of water with dust and the barrel will fill with clay. Rightclick to retrieve the clay block
 -added Mk2 cobble gen
 -added doc support for (almost) every item / block/ tool that actuly does something
